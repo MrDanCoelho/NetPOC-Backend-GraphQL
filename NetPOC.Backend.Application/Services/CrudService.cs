@@ -28,17 +28,17 @@ namespace NetPOC.Backend.Application.Services
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(CrudService<T>)}.{nameof(GetAll)} ");
+                _logger.LogInformation($"Begin - {nameof(GetAll)} ({typeof(T).Name})");
 
                 var result = await _crudRepository.GetAll();
                 
-                _logger.LogInformation($"Fim - {nameof(CrudService<T>)}.{nameof(GetAll)}");
+                _logger.LogInformation($"End - {nameof(GetAll)} ({typeof(T).Name})");
 
                 return result;
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(CrudService<T>)}.{nameof(GetAll)}: {e}");
+                _logger.LogError($"{nameof(GetAll)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -47,17 +47,17 @@ namespace NetPOC.Backend.Application.Services
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(GetById)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(GetById)} ({typeof(T).Name})");
                 
                 var result = await _crudRepository.GetById(id);
                 
-                _logger.LogInformation($"Fim - {nameof(GetById)} ({nameof(T)})");
+                _logger.LogInformation($"End - {nameof(GetById)} ({typeof(T).Name})");
 
                 return result;
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(GetById)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(GetById)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -66,16 +66,16 @@ namespace NetPOC.Backend.Application.Services
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(Insert)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(Insert)} ({typeof(T).Name})");
                 
                 await _crudRepository.Insert(obj);
                 await _crudRepository.Save();
                 
-                _logger.LogInformation($"Fim - {nameof(Insert)} ({nameof(T)})");
+                _logger.LogInformation($"End - {nameof(Insert)} ({typeof(T).Name})");
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(Insert)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(Insert)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -84,16 +84,16 @@ namespace NetPOC.Backend.Application.Services
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(Update)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(Update)} ({typeof(T).Name})");
                 
                 _crudRepository.Update(obj);
                 await _crudRepository.Save();
                 
-                _logger.LogInformation($"Fim - {nameof(Update)} ({nameof(T)})");
+                _logger.LogInformation($"End - {nameof(Update)} ({typeof(T).Name})");
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(Update)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(Update)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -102,17 +102,17 @@ namespace NetPOC.Backend.Application.Services
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(Delete)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(Delete)} ({typeof(T).Name})");
 
                 var obj = await _crudRepository.GetById(id);
                 _crudRepository.Delete(obj);
                 await _crudRepository.Save();
                 
-                _logger.LogInformation($"Fim - {nameof(Delete)} ({nameof(T)})");
+                _logger.LogInformation($"End - {nameof(Delete)} ({typeof(T).Name})");
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(Delete)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(Delete)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }

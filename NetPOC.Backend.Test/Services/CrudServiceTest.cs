@@ -13,28 +13,28 @@ namespace NetPOC.Backend.Test.Services
 {
     public class CrudServiceTest
     {
-        private readonly Mock<ILogger<UsuarioService>> _logger;
-        private readonly Mock<IUsuarioRepository> _crudRepository;
+        private readonly Mock<ILogger<UserService>> _logger;
+        private readonly Mock<IUserRepository> _crudRepository;
         
         public CrudServiceTest()
         {
-            _logger = new Mock<ILogger<UsuarioService>>();
-            _crudRepository = new Mock<IUsuarioRepository>();
+            _logger = new Mock<ILogger<UserService>>();
+            _crudRepository = new Mock<IUserRepository>();
         }
         
         [Fact]
         public async Task GetAll()
         {
             // Arrange
-            var usuarios = new UsuarioModel[]
+            var usuarios = new UserModel[]
             {
-                new UsuarioModel()
+                new UserModel()
             };
             _crudRepository.Setup(x => x.GetAll())
-                .Returns(Task.FromResult<IEnumerable<UsuarioModel>>(usuarios));
+                .Returns(Task.FromResult<IEnumerable<UserModel>>(usuarios));
             
             // Act
-            var service = new UsuarioService(_logger.Object, _crudRepository.Object);
+            var service = new UserService(_logger.Object, _crudRepository.Object);
             var result = await service.GetAll();
             
             // Assert
@@ -46,10 +46,10 @@ namespace NetPOC.Backend.Test.Services
         {
             // Arrange
             _crudRepository.Setup(x => x.GetById(1))
-                .Returns(Task.FromResult(new UsuarioModel()));
+                .Returns(Task.FromResult(new UserModel()));
             
             // Act
-            var service = new UsuarioService(_logger.Object, _crudRepository.Object);
+            var service = new UserService(_logger.Object, _crudRepository.Object);
             var result = await service.GetById(1);
             
             // Assert
@@ -60,10 +60,10 @@ namespace NetPOC.Backend.Test.Services
         public async Task Insert()
         {
             // Arrange
-            var usuario = new UsuarioModel();
+            var usuario = new UserModel();
             
             // Act
-            var service = new UsuarioService(_logger.Object, _crudRepository.Object);
+            var service = new UserService(_logger.Object, _crudRepository.Object);
             var result = await Record.ExceptionAsync(async () => await service.Insert(usuario));
             
             // Assert
@@ -74,10 +74,10 @@ namespace NetPOC.Backend.Test.Services
         public async Task Update()
         {
             // Arrange
-            var usuario = new UsuarioModel();
+            var usuario = new UserModel();
 
             // Act
-            var service = new UsuarioService(_logger.Object, _crudRepository.Object);
+            var service = new UserService(_logger.Object, _crudRepository.Object);
             var result = await Record.ExceptionAsync(() => service.Update(usuario));
             
             // Assert
@@ -88,10 +88,10 @@ namespace NetPOC.Backend.Test.Services
         public async Task Delete()
         {
             // Arrange
-            var usuario = new UsuarioModel();
+            var usuario = new UserModel();
 
             // Act
-            var service = new UsuarioService(_logger.Object, _crudRepository.Object);
+            var service = new UserService(_logger.Object, _crudRepository.Object);
             var result = await Record.ExceptionAsync(() => service.Delete(usuario));
             
             // Assert

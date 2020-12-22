@@ -12,12 +12,12 @@ namespace NetPOC.Backend.Test.Repositories
 {
     public class CrudRepositoryTest
     {
-        private readonly Mock<ILogger<UsuarioRepository>> _logger;
+        private readonly Mock<ILogger<UserRepository>> _logger;
         private DbContextOptions<DataContext> _options;
         
         public CrudRepositoryTest()
         {
-            _logger = new Mock<ILogger<UsuarioRepository>>();
+            _logger = new Mock<ILogger<UserRepository>>();
             _options = new DbContextOptionsBuilder<DataContext>()
                 .UseInMemoryDatabase(databaseName: "FakeDB")
                 .Options;
@@ -27,11 +27,11 @@ namespace NetPOC.Backend.Test.Repositories
         public async Task GetAll()
         {
             var context = new DataContext(_options);
-            await context.Usuario.AddAsync(new UsuarioModel() {Id = 1});
+            await context.User.AddAsync(new UserModel() {Id = 1});
             await context.SaveChangesAsync();
             
             // Act
-            var repository = new UsuarioRepository(_logger.Object, context);
+            var repository = new UserRepository(_logger.Object, context);
             var result = await repository.GetAll();
             
             // Assert
@@ -42,11 +42,11 @@ namespace NetPOC.Backend.Test.Repositories
         public async Task GetById()
         {
             var context = new DataContext(_options);
-            await context.Usuario.AddAsync(new UsuarioModel());
+            await context.User.AddAsync(new UserModel());
             await context.SaveChangesAsync();
             
             // Act
-            var repository = new UsuarioRepository(_logger.Object, context);
+            var repository = new UserRepository(_logger.Object, context);
             var result = await repository.GetById(1);
             
             // Assert
@@ -57,13 +57,13 @@ namespace NetPOC.Backend.Test.Repositories
         public async Task Insert()
         {
             // Arrange
-            var usuario = new UsuarioModel();
+            var User = new UserModel();
             
             var context = new DataContext(_options);
             
             // Act
-            var repository = new UsuarioRepository(_logger.Object, context);
-            var result = await Record.ExceptionAsync(async () => await repository.Insert(usuario));
+            var repository = new UserRepository(_logger.Object, context);
+            var result = await Record.ExceptionAsync(async () => await repository.Insert(User));
             
             // Assert
             Assert.Null(result);
@@ -73,15 +73,15 @@ namespace NetPOC.Backend.Test.Repositories
         public async Task Update()
         {
             // Arrange
-            var usuario = new UsuarioModel();
+            var User = new UserModel();
             
             var context = new DataContext(_options);
-            await context.Usuario.AddAsync(usuario);
+            await context.User.AddAsync(User);
             await context.SaveChangesAsync();
 
             // Act
-            var repository = new UsuarioRepository(_logger.Object, context);
-            var result = Record.Exception(() => repository.Update(usuario));
+            var repository = new UserRepository(_logger.Object, context);
+            var result = Record.Exception(() => repository.Update(User));
             
             // Assert
             Assert.Null(result);
@@ -91,15 +91,15 @@ namespace NetPOC.Backend.Test.Repositories
         public async Task Delete()
         {
             // Arrange
-            var usuario = new UsuarioModel();
+            var User = new UserModel();
             
             var context = new DataContext(_options);
-            await context.Usuario.AddAsync(usuario);
+            await context.User.AddAsync(User);
             await context.SaveChangesAsync();
             
             // Act
-            var repository = new UsuarioRepository(_logger.Object, context);
-            var result = Record.Exception(() => repository.Delete(usuario));
+            var repository = new UserRepository(_logger.Object, context);
+            var result = Record.Exception(() => repository.Delete(User));
             
             // Assert
             Assert.Null(result);
@@ -111,7 +111,7 @@ namespace NetPOC.Backend.Test.Repositories
             var context = new DataContext(_options);
             
             // Act
-            var repository = new UsuarioRepository(_logger.Object, context);
+            var repository = new UserRepository(_logger.Object, context);
             var result = await Record.ExceptionAsync(async () => await repository.Save());
             
             // Assert

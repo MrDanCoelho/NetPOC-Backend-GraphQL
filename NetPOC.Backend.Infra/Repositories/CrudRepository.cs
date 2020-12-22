@@ -34,17 +34,17 @@ namespace NetPOC.Backend.Infra.Repositories
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(GetAll)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(GetAll)} ({typeof(T).Name})");
                 
                 var result = await _table.ToListAsync();
                 
-                _logger.LogInformation($"Fim - {nameof(GetAll)} ({nameof(T)})");
+                _logger.LogInformation($"End - {nameof(GetAll)} ({typeof(T).Name})");
 
                 return result;
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(GetAll)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(GetAll)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -53,17 +53,17 @@ namespace NetPOC.Backend.Infra.Repositories
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(GetById)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(GetById)} ({typeof(T).Name})");
                 
                 var result = await _table.FindAsync(id);
                 
-                _logger.LogInformation($"Fim - {nameof(GetById)} ({nameof(T)})");
+                _logger.LogInformation($"End - {nameof(GetById)} ({typeof(T).Name})");
 
                 return result;
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(GetById)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(GetById)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -72,15 +72,15 @@ namespace NetPOC.Backend.Infra.Repositories
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(Insert)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(Insert)} ({typeof(T).Name})");
                 
                 await _table.AddAsync(obj);
                 
-                _logger.LogInformation($"Fim - {nameof(Insert)} ({nameof(T)})");
+                _logger.LogInformation($"End - {nameof(Insert)} ({typeof(T).Name})");
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(Insert)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(Insert)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -89,15 +89,15 @@ namespace NetPOC.Backend.Infra.Repositories
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(Update)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(Update)} ({typeof(T).Name})");
                 
                 _table.Update(obj);
                 
-                _logger.LogInformation($"Fim - {nameof(Update)} ({nameof(T)})");
+                _logger.LogInformation($"End - {nameof(Update)} ({typeof(T).Name})");
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(Update)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(Update)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -106,15 +106,15 @@ namespace NetPOC.Backend.Infra.Repositories
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(Delete)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(Delete)} ({typeof(T).Name})");
                 
                 _table.Remove(obj);
                 
-                _logger.LogInformation($"Fim - {nameof(Delete)} ({nameof(T)})");
+                _logger.LogInformation($"End - {nameof(Delete)} ({typeof(T).Name})");
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(Delete)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(Delete)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -123,15 +123,15 @@ namespace NetPOC.Backend.Infra.Repositories
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(Save)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(Save)} ({typeof(T).Name})");
                 
                 await _context.SaveChangesAsync();
                 
-                _logger.LogInformation($"Fim - {nameof(Save)} ({nameof(T)})");
+                _logger.LogInformation($"End - {nameof(Save)} ({typeof(T).Name})");
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(Save)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(Save)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }

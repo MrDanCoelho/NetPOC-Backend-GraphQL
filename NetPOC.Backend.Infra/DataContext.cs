@@ -20,6 +20,6 @@ namespace NetPOC.Backend.Infra
         }
         
         // Entities
-        public DbSet<UsuarioModel> Usuario { get; set; }
+        public DbSet<UserModel> User { get; set; }
     }
 }

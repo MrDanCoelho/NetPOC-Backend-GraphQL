@@ -5,15 +5,15 @@ using NetPOC.Backend.Domain.Models;
 
 namespace NetPOC.Backend.Infra.Repositories
 {
-    /// <inheritdoc cref="IUsuarioRepository" />
-    public class UsuarioRepository : CrudRepository<UsuarioModel>, IUsuarioRepository
+    /// <inheritdoc cref="IUserRepository" />
+    public class UserRepository : CrudRepository<UserModel>, IUserRepository
     {
         /// <summary>
-        /// Repositório do <see cref="UsuarioModel"/>
+        /// Repositório do <see cref="UserModel"/>
         /// </summary>
         /// <param name="logger">Logger do tipo <see cref="ILogger{UsuarioRepository}"/></param>
         /// <param name="context"><see cref="DataContext"/> da aplicação</param>
-        public UsuarioRepository(ILogger<UsuarioRepository> logger, DataContext context) 
+        public UserRepository(ILogger<UserRepository> logger, DataContext context) 
             : base(logger, context)
         {
             

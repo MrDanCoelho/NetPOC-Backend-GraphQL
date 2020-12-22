@@ -12,33 +12,33 @@ namespace NetPOC.Backend.Test.Controllers
 {
     public class CrudControllerBaseTest
     {
-        private readonly Mock<ILogger<UsuarioController>> _logger;
-        private readonly Mock<IUsuarioService> _crudService;
+        private readonly Mock<ILogger<UserQuery>> _logger;
+        private readonly Mock<IUserService> _crudService;
 
 
         public CrudControllerBaseTest()
         {
-            _logger = new Mock<ILogger<UsuarioController>>();
-            _crudService = new Mock<IUsuarioService>();
+            _logger = new Mock<ILogger<UserQuery>>();
+            _crudService = new Mock<IUserService>();
         }
         
         [Fact]
         public async Task GetAll()
         {
             // Arrange
-            var usuarios = new UsuarioModel[]
+            var usuarios = new UserModel[]
             {
-                new UsuarioModel()
+                new UserModel()
             };
             _crudService.Setup(x => x.GetAll())
-                .Returns(Task.FromResult<IEnumerable<UsuarioModel>>(usuarios));
+                .Returns(Task.FromResult<IEnumerable<UserModel>>(usuarios));
             
             // Act
-            var controller = new UsuarioController(_logger.Object, _crudService.Object);
+            var controller = new UserQuery(_logger.Object, _crudService.Object);
             var result = await controller.GetAll();
             
             // Assert
-            Assert.IsType<OkObjectResult>(result.Result);
+            Assert.NotEmpty(result);
         }
 
         [Fact]
@@ -46,24 +46,24 @@ namespace NetPOC.Backend.Test.Controllers
         {
             // Arrange
             _crudService.Setup(x => x.GetById(1))
-                .Returns(Task.FromResult(new UsuarioModel()));
+                .Returns(Task.FromResult(new UserModel()));
             
             // Act
-            var controller = new UsuarioController(_logger.Object, _crudService.Object);
+            var controller = new UserQuery(_logger.Object, _crudService.Object);
             var result = await controller.GetById(1);
             
             // Assert
-            Assert.IsType<OkObjectResult>(result.Result);
+            Assert.NotNull(result);
         }
 
         [Fact]
         public async Task Insert()
         {
             // Arrange
-            var usuario = new UsuarioModel();
+            var usuario = new UserModel();
             
             // Act
-            var controller = new UsuarioController(_logger.Object, _crudService.Object);
+            var controller = new UserQuery(_logger.Object, _crudService.Object);
             var result = await Record.ExceptionAsync(async () => await controller.Insert(usuario));
             
             // Assert
@@ -74,10 +74,10 @@ namespace NetPOC.Backend.Test.Controllers
         public async Task Update()
         {
             // Arrange
-            var usuario = new UsuarioModel();
+            var usuario = new UserModel();
 
             // Act
-            var controller = new UsuarioController(_logger.Object, _crudService.Object);
+            var controller = new UserQuery(_logger.Object, _crudService.Object);
             var result = await Record.ExceptionAsync(() => controller.Update(usuario));
             
             // Assert
@@ -88,7 +88,7 @@ namespace NetPOC.Backend.Test.Controllers
         public async Task Delete()
         {
             // Act
-            var controller = new UsuarioController(_logger.Object, _crudService.Object);
+            var controller = new UserQuery(_logger.Object, _crudService.Object);
             var result = await Record.ExceptionAsync(() => controller.Delete(1));
             
             // Assert

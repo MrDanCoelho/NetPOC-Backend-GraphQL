@@ -2,7 +2,7 @@
 
 namespace NetPOC.Backend.Domain.Interfaces.IRepositories
 {
-    public interface IUsuarioRepository : ICrudRepository<UsuarioModel>
+    public interface IUserRepository : ICrudRepository<UserModel>
     {
         
     }

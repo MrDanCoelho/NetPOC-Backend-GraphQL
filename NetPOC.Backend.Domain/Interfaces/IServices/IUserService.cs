@@ -2,7 +2,7 @@
 
 namespace NetPOC.Backend.Domain.Interfaces.IServices
 {
-    public interface IUsuarioService : ICrudService<UsuarioModel>
+    public interface IUserService : ICrudService<UserModel>
     {
         
     }

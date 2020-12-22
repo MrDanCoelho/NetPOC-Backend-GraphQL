@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NetPOC.Backend.Domain.Validations
 {
-    public class CheckDataNascimentoAttribute : ValidationAttribute
+    public class CheckBirthDateAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

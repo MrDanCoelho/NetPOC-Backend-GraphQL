@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using NetPOC.Backend.Application.Services;
 using NetPOC.Backend.Domain.Interfaces.IServices;
 
 namespace NetPOC.Backend.API.Controllers.v1
 {
-    [ApiVersion("1.0")]
-    [ApiController]
-    [Route("api/v{version:apiVersion}/[controller]")]
-    public class CrudControllerBase<T> : ControllerBase where T : class
+    public abstract class CrudQueryBase<T> where T : class
     {
-        private readonly ILogger<CrudControllerBase<T>> _logger;
+        private readonly ILogger<CrudQueryBase<T>> _logger;
         private readonly ICrudService<T> _crudService;
 
-        public CrudControllerBase(ILogger<CrudControllerBase<T>> logger, ICrudService<T> crudService)
+        protected CrudQueryBase(ILogger<CrudQueryBase<T>> logger, ICrudService<T> crudService)
         {
             _logger = logger;
             _crudService = crudService;
@@ -25,22 +23,21 @@ namespace NetPOC.Backend.API.Controllers.v1
         /// Busca todos os objetos
         /// </summary>
         /// <returns>Lista de objetos/></returns>
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<T>>> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(GetAll)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(GetAll)} ({typeof(T).Name})");
 
                 var result = await _crudService.GetAll();
                 
-                _logger.LogInformation($"Fim - {nameof(GetAll)} ({nameof(T)})");
+                _logger.LogInformation($"End - {nameof(GetAll)} ({typeof(T).Name})");
 
-                return Ok(result);
+                return result;
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(GetAll)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(GetAll)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -51,21 +48,21 @@ namespace NetPOC.Backend.API.Controllers.v1
         /// <param name="id">ID do objeto a ser buscado</param>
         /// <returns>Objeto achado</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<T>> GetById(int id)
+        public async Task<T> GetById(int id)
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(GetById)} ({nameof(T)})");
-
+                _logger.LogInformation($"Begin - {nameof(GetById)} ({typeof(T).Name})");
+        
                 var result = await _crudService.GetById(id);
                 
-                _logger.LogInformation($"Fim - {nameof(GetById)} ({nameof(T)})");
-
-                return Ok(result);
+                _logger.LogInformation($"End - {nameof(GetById)} ({typeof(T).Name})");
+        
+                return result;
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(GetById)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(GetById)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -76,21 +73,21 @@ namespace NetPOC.Backend.API.Controllers.v1
         /// <param name="obj">Objeto a ser inserido</param>
         /// <returns><see cref="ActionResult"/> da operação</returns>
         [HttpPost]
-        public async Task<ActionResult> Insert([FromBody] T obj)
+        public async Task<string> Insert([FromBody] T obj)
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(Insert)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(Insert)} ({typeof(T).Name})");
                 
                 await _crudService.Insert(obj);
                 
-                _logger.LogInformation($"Fim - {nameof(Insert)} ({nameof(T)})");
-
-                return Ok("Objeto inserido com sucesso");
+                _logger.LogInformation($"End - {nameof(Insert)} ({typeof(T).Name})");
+        
+                return "Objeto inserido com sucesso";
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(Insert)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(Insert)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -101,21 +98,21 @@ namespace NetPOC.Backend.API.Controllers.v1
         /// <param name="obj">Objeto a ser atualizado</param>
         /// <returns><see cref="ActionResult"/> da operação</returns>
         [HttpPut]
-        public async Task<ActionResult> Update([FromBody] T obj)
+        public async Task<string> Update([FromBody] T obj)
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(Update)} ({nameof(T)})");
-
+                _logger.LogInformation($"Begin - {nameof(Update)} ({typeof(T).Name})");
+        
                 await _crudService.Update(obj);
-
-                _logger.LogInformation($"Fim - {nameof(Update)} ({nameof(T)})");
-
-                return Ok("Objeto atualizado com sucesso");
+        
+                _logger.LogInformation($"End - {nameof(Update)} ({typeof(T).Name})");
+        
+                return "Objeto atualizado com sucesso";
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(Update)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(Update)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
@@ -126,21 +123,21 @@ namespace NetPOC.Backend.API.Controllers.v1
         /// <param name="id">ID do objeto a ser apagado</param>
         /// <returns><see cref="ActionResult"/> da operação</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<string> Delete(int id)
         {
             try
             {
-                _logger.LogInformation($"Inicio - {nameof(Delete)} ({nameof(T)})");
+                _logger.LogInformation($"Begin - {nameof(Delete)} ({typeof(T).Name})");
                 
                 await _crudService.Delete(id);
                 
-                _logger.LogInformation($"Fim - {nameof(Delete)} ({nameof(T)})");
-
-                return Ok("Objeto apagado com sucesso");
+                _logger.LogInformation($"End - {nameof(Delete)} ({typeof(T).Name})");
+        
+                return "Objeto apagado com sucesso";
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(Delete)} ({nameof(T)}): {e}");
+                _logger.LogError($"{nameof(Delete)} ({typeof(T).Name}): {e}");
                 throw;
             }
         }
